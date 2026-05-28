@@ -77,7 +77,7 @@ class TMC5130 {
 
     coolConf = setBits(coolConf, 16, 7, 0x00);
 
-    pwmConf = setBits(pwmConf, 0, 8, 0xff);
+    pwmConf = setBits(pwmConf, 0, 8, 0x55);
     pwmConf = setBits(pwmConf, 8, 8, 0x04);
     pwmConf = setBits(pwmConf, 18, 1, 1);
     pwmConf = setBits(pwmConf, 20, 2, 0x01);
