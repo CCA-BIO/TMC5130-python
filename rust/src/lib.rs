@@ -197,7 +197,7 @@ where
         set_bits(&mut cool_conf, 16, 7, 0x00);
 
         let mut pwm_conf = 0u32;
-        set_bits(&mut pwm_conf, 0, 8, 0xFF);
+        set_bits(&mut pwm_conf, 0, 8, 0x55);
         set_bits(&mut pwm_conf, 8, 8, 0x04);
         set_bits(&mut pwm_conf, 18, 1, 1);
         set_bits(&mut pwm_conf, 20, 2, 0x01);
