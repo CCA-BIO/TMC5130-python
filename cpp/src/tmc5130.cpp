@@ -142,12 +142,14 @@ void Driver::setVelocityRpm(double velocity_rpm) {
 }
 
 std::uint8_t Driver::readVersion() {
-    const auto [, value] = readRegister(kRegIoin);
+    const auto result = readRegister(kRegIoin);
+    const auto value = result.second;
     return static_cast<std::uint8_t>((value >> 24) & 0xFFu);
 }
 
 IoStatus Driver::getIoStatus() {
-    const auto [, value] = readRegister(kRegIoin);
+    const auto result = readRegister(kRegIoin);
+    const auto value = result.second;
     return IoStatus{
         .refl_step = (value & (1u << 0)) != 0,
         .refr_dir = (value & (1u << 1)) != 0,
@@ -172,7 +174,8 @@ void Driver::setCurrentPosition(double position_units) {
 }
 
 double Driver::getCurrentPosition() {
-    const auto [, value] = readRegister(kRegXactual);
+    const auto result = readRegister(kRegXactual);
+    const auto value = result.second;
     return toUnits(static_cast<std::int32_t>(value));
 }
 
