@@ -1266,7 +1266,7 @@ class TMC5130:
         _current = IHoldIRun()
         _current.ihold = int(ihold)
         _current.irun = int(irun)
-        _current.idelay = int(idelay)
+        _current.iholddelay = int(idelay)
 
         self._write(IHoldIRun.address, _current.get_register())
 
@@ -1289,7 +1289,7 @@ class TMC5130:
         """
         Set the motion for the TMC Driver
         """
-        velocity = self._from_mm_deg(velocity_mms_degs)
+        velocity = self._from_mms_degs(velocity_mms_degs)
         acceleration = self._from_mms_degs(acceleration_mms_degs)
         deceleration = self._from_mms2_degs2(deceleration_mms_degs)
         print(f"Velocity: {velocity} Acceleration: {acceleration} Deceleration: {deceleration}")
