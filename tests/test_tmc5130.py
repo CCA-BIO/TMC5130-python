@@ -250,7 +250,7 @@ class TMC5130Tests(unittest.TestCase):
 
         velocity, acceleration, deceleration = set_motion_mock.call_args.args
         self.assertAlmostEqual(velocity, driver._from_mms_degs(12.5))
-        self.assertAlmostEqual(acceleration, driver._from_mms_degs(3.5))
+        self.assertAlmostEqual(acceleration, driver._from_mms2_degs2(3.5))
         self.assertAlmostEqual(deceleration, driver._from_mms2_degs2(1.5))
 
     def test_set_motion_writes_all_motion_registers_with_stage_split(self):
