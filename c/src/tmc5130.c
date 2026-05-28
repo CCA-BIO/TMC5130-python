@@ -320,11 +320,13 @@ int tmc5130_set_current_position(tmc5130_t *driver, double position_units) {
 int tmc5130_get_current_position(tmc5130_t *driver, double *position_units) {
     uint8_t status = 0u;
     uint32_t value = 0u;
-    if (position_units == NULL) {
+    int rc;
+    if (driver == NULL || position_units == NULL) {
         return TMC5130_ERROR_ARGUMENT;
     }
-    if (read_register(driver, REG_XACTUAL, &status, &value) != TMC5130_OK) {
-        return TMC5130_ERROR_SPI;
+    rc = read_register(driver, REG_XACTUAL, &status, &value);
+    if (rc != TMC5130_OK) {
+        return rc;
     }
     (void)status;
     *position_units = to_units(driver, (int32_t)value);
