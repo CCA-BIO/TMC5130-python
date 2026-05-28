@@ -1,3 +1,23 @@
+"""
+Unit tests for the TMC5130 stepper motor driver.
+
+This test module provides regression coverage for the TMC5130 driver without requiring
+physical hardware. It uses mocked dependencies (board, digitalio, SPIDevice, DotWiz) to
+verify core driver functionality including:
+
+- Register serialization/deserialization and byte ordering
+- SPI read/write framing and communication protocol
+- Initialization sequence and register configuration
+- Current clamping and hold-delay encoding
+- RPM and motion unit conversions
+- Motion profile register writes with staged acceleration
+- Version detection and IO status decoding
+- Position helpers and stop-motion behavior
+
+The tests helped surface and fix two logic regressions:
+1. Hold delay was being written to a non-existent field alias
+2. set_motion_units() was using the wrong conversion helper for velocity
+"""
 import importlib.util
 import sys
 import types
