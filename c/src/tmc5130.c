@@ -174,7 +174,7 @@ int tmc5130_init(tmc5130_t *driver) {
 
     set_bits(&cool_conf, 16u, 7u, 0x00u);
 
-    set_bits(&pwm_conf, 0u, 8u, 0xFFu);
+    set_bits(&pwm_conf, 0u, 8u, 0x55u);
     set_bits(&pwm_conf, 8u, 8u, 0x04u);
     set_bits(&pwm_conf, 18u, 1u, 1u);
     set_bits(&pwm_conf, 20u, 2u, 0x01u);
