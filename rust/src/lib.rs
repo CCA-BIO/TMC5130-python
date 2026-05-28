@@ -340,7 +340,11 @@ where
     }
 
     fn from_units(&self, units: f64) -> i32 {
-        (units * self.config.motor.steps_per_rev as f64 * self.config.driver.microstep as f64 * self.config.motor.units_per_rev).round() as i32
+        (units
+            / self.config.motor.units_per_rev
+            * self.config.motor.steps_per_rev as f64
+            * self.config.driver.microstep as f64)
+            .round() as i32
     }
 
     fn from_units_per_second(&self, units_per_second: f64) -> u32 {
@@ -352,7 +356,9 @@ where
     }
 
     fn to_units(&self, usteps: i32) -> f64 {
-        usteps as f64 / (self.config.motor.steps_per_rev as f64 * self.config.driver.microstep as f64 * self.config.motor.units_per_rev)
+        usteps as f64
+            / (self.config.motor.steps_per_rev as f64 * self.config.driver.microstep as f64)
+            * self.config.motor.units_per_rev
     }
 
     #[allow(dead_code)]
