@@ -128,7 +128,7 @@ class IHoldIRun(HelperBase, ctypes.LittleEndianStructure):
         ("irun", ctypes.c_uint32, 5),  # 8-12 bits
         ("_padding_2", ctypes.c_uint32, 3),  # 13-15 bits
         ("iholddelay", ctypes.c_uint32, 4),  # 16-19 bits
-        ("_padding_2", ctypes.c_uint32, 12),  # 20-31 bits
+        ("_padding_3", ctypes.c_uint32, 12),  # 20-31 bits
     ]
 
 
@@ -409,7 +409,7 @@ class VDCMin(HelperBase, ctypes.LittleEndianStructure):
     address: int = 0x33
     _pack_ = 1
     _fields_ = [
-        ("vdcmmin", ctypes.c_uint32, 23),
+        ("vdcmin", ctypes.c_uint32, 23),
         ("_padding", ctypes.c_uint32, 9),
     ]
 
@@ -1260,13 +1260,13 @@ class TMC5130:
         else:
             ihold = 0
         ihold = min(31, max(0, ihold))
-        idelay = 3
+        iholddelay = 3
 
         # Set the current
         _current = IHoldIRun()
         _current.ihold = int(ihold)
         _current.irun = int(irun)
-        _current.idelay = int(idelay)
+        _current.iholddelay = int(iholddelay)
 
         self._write(IHoldIRun.address, _current.get_register())
 
@@ -1289,8 +1289,8 @@ class TMC5130:
         """
         Set the motion for the TMC Driver
         """
-        velocity = self._from_mm_deg(velocity_mms_degs)
-        acceleration = self._from_mms_degs(acceleration_mms_degs)
+        velocity = self._from_mms_degs(velocity_mms_degs)
+        acceleration = self._from_mms2_degs2(acceleration_mms_degs)
         deceleration = self._from_mms2_degs2(deceleration_mms_degs)
         print(f"Velocity: {velocity} Acceleration: {acceleration} Deceleration: {deceleration}")
         self.set_motion(velocity, acceleration, deceleration)
