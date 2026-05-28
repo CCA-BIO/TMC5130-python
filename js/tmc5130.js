@@ -206,7 +206,7 @@ class TMC5130 {
   }
 
   fromUnits(units) {
-    return Math.round(units * this.config.motor.steps_per_rev * this.config.driver.microstep * this.config.motor.units_per_rev);
+    return Math.round((units / this.config.motor.units_per_rev) * this.config.motor.steps_per_rev * this.config.driver.microstep);
   }
 
   fromUnitsPerSecond(units) {
@@ -218,7 +218,7 @@ class TMC5130 {
   }
 
   toUnits(microsteps) {
-    return microsteps / (this.config.motor.steps_per_rev * this.config.driver.microstep * this.config.motor.units_per_rev);
+    return (microsteps / (this.config.motor.steps_per_rev * this.config.driver.microstep)) * this.config.motor.units_per_rev;
   }
 
   ustepT(ustepsPerSecond) {
