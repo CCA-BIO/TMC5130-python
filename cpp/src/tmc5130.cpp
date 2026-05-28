@@ -151,15 +151,15 @@ IoStatus Driver::getIoStatus() {
     const auto result = readRegister(kRegIoin);
     const auto value = result.second;
     return IoStatus{
-        .refl_step = (value & (1u << 0)) != 0,
-        .refr_dir = (value & (1u << 1)) != 0,
-        .enca_dcin_cfg5 = (value & (1u << 3)) != 0,
-        .encb_dcen_cfg4 = (value & (1u << 2)) != 0,
-        .drv_enn_cfg6 = (value & (1u << 4)) != 0,
-        .enc_n_dco = (value & (1u << 5)) != 0,
-        .sd_mode = (value & (1u << 6)) != 0,
-        .swcomp_in = (value & (1u << 7)) != 0,
-        .version = static_cast<std::uint8_t>((value >> 24) & 0xFFu),
+        (value & (1u << 0)) != 0,
+        (value & (1u << 1)) != 0,
+        (value & (1u << 3)) != 0,
+        (value & (1u << 2)) != 0,
+        (value & (1u << 4)) != 0,
+        (value & (1u << 5)) != 0,
+        (value & (1u << 6)) != 0,
+        (value & (1u << 7)) != 0,
+        static_cast<std::uint8_t>((value >> 24) & 0xFFu),
     };
 }
 
