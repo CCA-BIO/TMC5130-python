@@ -226,8 +226,8 @@ std::uint32_t Driver::fromRps2(double rps2) const {
 }
 
 std::int32_t Driver::fromUnits(double units) const {
-    const auto scale = static_cast<double>(config_.motor.steps_per_rev) * static_cast<double>(config_.driver.microstep) * config_.motor.units_per_rev;
-    return static_cast<std::int32_t>(std::llround(units * scale));
+    const auto scale = static_cast<double>(config_.motor.steps_per_rev) * static_cast<double>(config_.driver.microstep);
+    return static_cast<std::int32_t>(std::llround((units / config_.motor.units_per_rev) * scale));
 }
 
 std::uint32_t Driver::fromUnitsPerSecond(double units) const {
@@ -239,8 +239,8 @@ std::uint32_t Driver::fromUnitsPerSecondSquared(double units) const {
 }
 
 double Driver::toUnits(std::int32_t microsteps) const {
-    const auto scale = static_cast<double>(config_.motor.steps_per_rev) * static_cast<double>(config_.driver.microstep) * config_.motor.units_per_rev;
-    return static_cast<double>(microsteps) / scale;
+    const auto scale = static_cast<double>(config_.motor.steps_per_rev) * static_cast<double>(config_.driver.microstep);
+    return (static_cast<double>(microsteps) / scale) * config_.motor.units_per_rev;
 }
 
 }  // namespace tmc5130
