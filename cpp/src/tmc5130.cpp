@@ -80,7 +80,7 @@ void Driver::init() {
 
     setBits(cool_conf, 16, 7, 0x00);
 
-    setBits(pwm_conf, 0, 8, 0xFF);
+    setBits(pwm_conf, 0, 8, 0x55);
     setBits(pwm_conf, 8, 8, 0x04);
     setBits(pwm_conf, 18, 1, 1);
     setBits(pwm_conf, 20, 2, 0x01);
