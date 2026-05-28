@@ -96,8 +96,8 @@ static uint32_t ustep_ta2(double usteps_per_second_squared) {
 }
 
 static int32_t from_units(const tmc5130_t *driver, double units) {
-    double scale = (double)driver->config.motor.steps_per_rev * (double)driver->config.driver.microstep * driver->config.motor.units_per_rev;
-    return (int32_t)llround(units * scale);
+    double scale = (double)driver->config.motor.steps_per_rev * (double)driver->config.driver.microstep;
+    return (int32_t)llround((units / driver->config.motor.units_per_rev) * scale);
 }
 
 static uint32_t from_rps(const tmc5130_t *driver, double rps) {
