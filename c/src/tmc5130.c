@@ -279,11 +279,13 @@ int tmc5130_read_version(tmc5130_t *driver, uint8_t *version) {
 int tmc5130_get_io_status(tmc5130_t *driver, tmc5130_io_status_t *status) {
     uint8_t read_status = 0u;
     uint32_t value = 0u;
-    if (status == NULL) {
+    int rc;
+    if (driver == NULL || status == NULL) {
         return TMC5130_ERROR_ARGUMENT;
     }
-    if (read_register(driver, REG_IOIN, &read_status, &value) != TMC5130_OK) {
-        return TMC5130_ERROR_SPI;
+    rc = read_register(driver, REG_IOIN, &read_status, &value);
+    if (rc != TMC5130_OK) {
+        return rc;
     }
     (void)read_status;
     status->refl_step = (value & (1u << 0)) != 0u;
